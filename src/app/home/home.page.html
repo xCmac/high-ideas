@@ -14,22 +14,42 @@
   </ion-header>
 
   <div id="container">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-        <ion-card-title>Card Title</ion-card-title>
-      </ion-card-header>
-    
-      <ion-card-content>
-        Keep close to Nature's heart... and break clear away, once in awhile,
-        and climb a mountain or spend a week in the woods. Wash your spirit clean.
-      </ion-card-content>
-      <ion-button expand="block" color="success">
-        <ion-icon slot="icon-only" name="refresh-outline"></ion-icon>
-      </ion-button>
-    </ion-card>
+    <div *ngIf=isShowingIdea>
+      <ion-card color="dark" *ngIf="currentIdea">
+        <ion-card-header>
+          <ion-card-title>{{currentIdea.title}}</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          {{currentIdea.description}}
+        </ion-card-content>
+        <ion-button color="success" (click)="refreshIdeaClick()">
+          <ion-icon slot="icon-only" name="refresh-outline"></ion-icon>
+        </ion-button>
+      </ion-card>
+    </div>
 
-    <ion-button size="small" color="dark">
+    <div *ngIf=!isShowingIdea>
+      <ion-card color="dark">
+        <ion-card-header>
+          <ion-card-title>
+            <ion-input placeholder="Enter Title..." type="text"></ion-input>
+          </ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+            <ion-input placeholder="Enter Description..." type="text"></ion-input>
+        </ion-card-content>
+        <ion-button color="success" (click)="actuallySubmitIdeaClick()">
+          <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+        </ion-button>
+        <ion-button color="danger" (click)="cancelSubmitIdeaClick()">
+          <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+        </ion-button>
+      </ion-card>
+    </div>
+
+    <ion-button *ngIf=isShowingIdea size="small" color="dark" (click)="submitIdeaClick()">
       Got an idea?
     </ion-button>
   </div>
